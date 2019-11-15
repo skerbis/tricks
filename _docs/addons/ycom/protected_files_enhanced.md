@@ -1,34 +1,36 @@
 ---
 title: Geschütze Dateien mit YCom - per Template
-authors: [tgoellner,skerbis]
-prio:
+authors:
+  - tgoellner
+  - skerbis
+prio: null
 ---
 
 # Geschütze Dateien mit YCom - per Template
 
-> **Hinweis** Mit der ycom Version 3.0 wird das Plugin media_auth mitgeliefert. Hiermit lassen sich einzelne Dateien ohne weitere Anpassungen schützen. Die nachfolgende Anleitung zeigt einen alternativen Weg zum Schutz festgelegter Kategorien. 
+> **Hinweis** Mit der ycom Version 3.0 wird das Plugin media\_auth mitgeliefert. Hiermit lassen sich einzelne Dateien ohne weitere Anpassungen schützen. Die nachfolgende Anleitung zeigt einen alternativen Weg zum Schutz festgelegter Kategorien.
 
+## Wie kann man Dateien in Verbindung mit YCom \(Community Addon\) einfach schützen?
 
-### Wie kann man Dateien in Verbindung mit YCom (Community Addon) einfach schützen?
-Da Redaxo aktuell nur einen Medienordner hat und so von außen alle Dateien in diesem Ordner öffentlich zugänglich sind, benötigt man eine Lösung, die den Dateiaufruf überprüft und entscheidet ob es sich um eine geschützte Datei oder einer öffentlichen Datei handelt. 
+Da Redaxo aktuell nur einen Medienordner hat und so von außen alle Dateien in diesem Ordner öffentlich zugänglich sind, benötigt man eine Lösung, die den Dateiaufruf überprüft und entscheidet ob es sich um eine geschützte Datei oder einer öffentlichen Datei handelt.
 
-Hier verwenden wir eine Rewrite-Direktive und ein Template um es zu realisieren.  Dateien, die in einer festgelegten Medienpool-**Hauptkategorie** und deren Unterkategorien im Medienpool liegen, können so vor unerlaubtem Zugriff geschützt werden. 
+Hier verwenden wir eine Rewrite-Direktive und ein Template um es zu realisieren. Dateien, die in einer festgelegten Medienpool-**Hauptkategorie** und deren Unterkategorien im Medienpool liegen, können so vor unerlaubtem Zugriff geschützt werden.
 
-----------
-**Achtung**
-Diese Lösung, schützt nur Dateien die über /media/dateiname.xyz und über /index.php?fileName=dateiname.xyz aufgerufen werden. Eine Ausweitung auf z.B: Mediamanager Urls ist über einen entsprechenden Effekt denkbar.
+**Achtung** Diese Lösung, schützt nur Dateien die über /media/dateiname.xyz und über /index.php?fileName=dateiname.xyz aufgerufen werden. Eine Ausweitung auf z.B: Mediamanager Urls ist über einen entsprechenden Effekt denkbar.
 
-----------
-### Voraussetzungen
+## Voraussetzungen
+
 Damit dieser Trick funktioniert müssen zunächst einige Vorbereitungen getroffen werden.
 
-#### 1. (optional) Nutzergruppen erstellen
-Im Backend müssen bei den Gruppen einzelne Nutzergruppen angelegt werden. Die Nutzergruppen müssen dann den einzelnen nutzern zugewiesen werden - diese Zuweisung erfolgt über das Nutzerfeld ```ycom_groups```.
+### 1. \(optional\) Nutzergruppen erstellen
 
-#### 2. Meta Infos anlegen
+Im Backend müssen bei den Gruppen einzelne Nutzergruppen angelegt werden. Die Nutzergruppen müssen dann den einzelnen nutzern zugewiesen werden - diese Zuweisung erfolgt über das Nutzerfeld `ycom_groups`.
+
+### 2. Meta Infos anlegen
+
 Über das Meta Infos Addon werden zwei Metafelder für Medien angelegt:
 
-```
+```text
 Spaltenname : ycom_users
 Feldbezeichnung : translate:ycom_user
 Feldtyp : select
@@ -40,7 +42,7 @@ _bei "Nur in folgenden Kategorien verfügbar" noch die festgelegte Medienpool-Ka
 
 Wenn Benutzergruppen verwendet werden, sollte noch das folgende Metafeld angelegt werden:
 
-```
+```text
 Spaltenname : ycom_groups
 Feldbezeichnung : translate:ycom_groups
 Feldtyp : select
@@ -54,7 +56,7 @@ _bei "Nur in folgenden Kategorien verfügbar" noch die festgelegte Medienpool-Ka
 
 Nun können Dateien in den oben definierten Medienkategorien mit entsprechenden Nutzer- und Gruppenzuweisungen ausgestattet werden.
 
-#### 3. Nachfolgendes Template anlegen (Kommentare beachten): 
+### 3. Nachfolgendes Template anlegen \(Kommentare beachten\):
 
 ```php
 <?php
@@ -63,7 +65,7 @@ Nun können Dateien in den oben definierten Medienkategorien mit entsprechenden 
 
   // Welche Medienkategorien beinhaltet die geschützten Dateien? (Medienpool-Kategorie-ID)
   $secured_categories = [1];
-    
+
   // Wohin soll bei einem unberechtigten Zugriff umgeleitet werden? (Artikel ID)
   $redirect_article = rex_article::getNotfoundArticleId();
 
@@ -192,14 +194,14 @@ APACHE:
 /.htaccess editieren
 
 > Bei Verwendung von yrewrite direkt nach `RewriteRule ^imagetypes/…`
-    
-```apacheconf
+
+```text
 RewriteRule ^/?media/(.*\.(pdf|doc|zip))$ /index.php?fileName=$1 [L]
 ```
 
-> Bei Verwendung ohne Rewriter, eine .htaccess-Datei im Root der Website anlegen und folgenden Inhalt einfügen. 
+> Bei Verwendung ohne Rewriter, eine .htaccess-Datei im Root der Website anlegen und folgenden Inhalt einfügen.
 
-```apacheconf
+```text
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^/?media/(.*\.[^\.]+)$ /index.php?fileName=$1 [L]
@@ -208,22 +210,19 @@ RewriteRule ^/?media/(.*\.(pdf|doc|zip))$ /index.php?fileName=$1 [L]
 
 NGINX Direktive:
 
-```nginx
+```text
 location / {
   rewrite ^/?media/(.*\.(pdf|doc|zip))$ /index.php?fileName=$1 break;
 }
 ```
 
-Hier wurde festgelegt welche Dateien geschützt sein sollen.
-Weitere Endungen können beliebig hinzugefügt werden z.B:  |eps|pptx|docx …
+Hier wurde festgelegt welche Dateien geschützt sein sollen. Weitere Endungen können beliebig hinzugefügt werden z.B: \|eps\|pptx\|docx …
 
-Wenn man nachfolgenden Code in allen Ausgabe-Templates **am Anfang** einfügt, sind die Dateien geschützt. 
-XX steht für die ID des Templates
+Wenn man nachfolgenden Code in allen Ausgabe-Templates **am Anfang** einfügt, sind die Dateien geschützt. XX steht für die ID des Templates
 
 ```php
 REX_TEMPLATE[XX]
 ```
 
-----------
-**Achtung!** Vor dem Template darf auf keinen Fall eine Ausgabe von Inhalten erfolgen.
-Bei Problemen bitte unbedingt prüfen ob sich Leerzeichen / -zeilen vor und nach dem Template eingeschlichen haben.  
+**Achtung!** Vor dem Template darf auf keinen Fall eine Ausgabe von Inhalten erfolgen. Bei Problemen bitte unbedingt prüfen ob sich Leerzeichen / -zeilen vor und nach dem Template eingeschlichen haben.
+

@@ -1,9 +1,9 @@
 ---
-title: "YForm Formulare: Attribute für Input-Elemente in PHP-Schreibweise"
-authors: [danspringer]
-prio:
+title: 'YForm Formulare: Attribute für Input-Elemente in PHP-Schreibweise'
+authors:
+  - danspringer
+prio: null
 ---
-
 
 # Attribute an YForm-Element anfügen
 
@@ -17,3 +17,4 @@ array(
       'attributes' => '{"placeholder":"Geben Sie eine Nachricht ein", "class":"css-klassenname", "id":"form-id"}')
       );
 ```
+

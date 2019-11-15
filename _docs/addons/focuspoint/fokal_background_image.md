@@ -1,14 +1,17 @@
 ---
 title: Hintergrundbild mit Focuspoint
-authors: [marcohanke, skerbis, christophboecker]
-prio:
+authors:
+  - marcohanke
+  - skerbis
+  - christophboecker
+prio: null
 ---
 
 # Hintergrundbild mit Focuspoint
 
-> *Hinweis:* Das Hintergrundbild darf NICHT mit dem MediaManager-Effekt `Fokuspoint` beschnitten werden, es sollte höchstens auf die entsprechende Maximalgröße skaliert werden. Voraussetzung: Installiertes Focuspoint-AddOn und im Medienpool hinterlegte Koordinaten.
+> _Hinweis:_ Das Hintergrundbild darf NICHT mit dem MediaManager-Effekt `Fokuspoint` beschnitten werden, es sollte höchstens auf die entsprechende Maximalgröße skaliert werden. Voraussetzung: Installiertes Focuspoint-AddOn und im Medienpool hinterlegte Koordinaten.
 
-Mit folgendem Code kann man ein Bild als Hintergrundbild einbinden, wobei der Fokuspoint aus dem Medienpool berücksichtigt wird. Somit ist unabhängig vom Browserfenster immer der gewünschte Ausschnitt zu sehen. 
+Mit folgendem Code kann man ein Bild als Hintergrundbild einbinden, wobei der Fokuspoint aus dem Medienpool berücksichtigt wird. Somit ist unabhängig vom Browserfenster immer der gewünschte Ausschnitt zu sehen.
 
 ```php
 <?php
@@ -27,7 +30,8 @@ if ('REX_MEDIA[id=1]' != '') {
 }
 ```
 
-```html
+```markup
 <!-- Ausgabe des Styles innerhalb eines div -->
 <div <?= $style ?>></div>
 ```
+

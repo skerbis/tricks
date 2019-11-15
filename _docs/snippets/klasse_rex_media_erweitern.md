@@ -1,16 +1,17 @@
 ---
 title: Die Klasse rex_media erweitern
-authors: [DanielWeitenauer]
-prio:
+authors:
+  - DanielWeitenauer
+prio: null
 ---
 
-# Die Klasse rex_media erweitern
+# Die Klasse rex\_media erweitern
 
 Seit REDAXO Version 5.3 kann die Klasse `rex_media` erweitert werden. Damit ist es möglich, fehlende Funktionen über eine Kind-Klasse nachzurüsten.
 
 ## Beispiel
 
-### Erweitern der Klasse `rex_media` um eine Methode, die eine Datei-URL mit Medientyp ausgibt 
+### Erweitern der Klasse `rex_media` um eine Methode, die eine Datei-URL mit Medientyp ausgibt
 
 ```php
 // Das in REX_MEDIA[1] gespeicherte Bild wird mit dem Medientyp 'bootstrap_jumbotron' ausgegeben
@@ -19,7 +20,7 @@ $media = new my_media(REX_MEDIA[1]);
 $url = $media->getMediaUrl('bootstrap_jumbotron', true)
 ```
 
-### Erweitern der Klasse `rex_media` um eine Methode, um mehrsprachige Medien-Metadaten abzufragen 
+### Erweitern der Klasse `rex_media` um eine Methode, um mehrsprachige Medien-Metadaten abzufragen
 
 ```php
 $media = new my_media(REX_MEDIA[1]); 
@@ -35,7 +36,7 @@ $metafield = $media->getValueTranslated('metafield');
 
 // Falls das Metafeld 'metafield_*' leer ist, wird ein Default-Wert zurückgegeben
 $media = new my_media(REX_MEDIA[1]);  
-$metafield = $media->getValueTranslated('metafield',, 'Das Feld ist leer'); 
+$metafield = $media->getValueTranslated('metafield',, 'Das Feld ist leer');
 ```
 
 ```php
@@ -47,7 +48,7 @@ class my_media extends rex_media
     public function __construct()
     {
     }
-    
+
     /**
      * Extended getUrl method, that allows the passing of a mediatype into the method,
      * as well as into the extension point. The Url will be prettyfied if yrewrite is available.
@@ -120,3 +121,4 @@ class my_media extends rex_media
     }
 }
 ```
+

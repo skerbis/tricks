@@ -1,31 +1,29 @@
 ---
 title: Language Switcher
 authors: []
-prio:
+prio: null
 ---
 
 # Theme AddOn - Language Switcher
 
 > Benötigt das [Theme Addon](https://github.com/FriendsOfREDAXO/theme)
 
-- [Was macht es?](#was-macht-es)
-- [Die Funktion](#die-funktion)
-- [Einbinden in Theme](#einbinden-in-theme)
-- [Ausgabe im Template](#ausgabe-im-template)
-- [Theme Debug Module](#theme-debug-module)
+* [Was macht es?](language_switch.md#was-macht-es)
+* [Die Funktion](language_switch.md#die-funktion)
+* [Einbinden in Theme](language_switch.md#einbinden-in-theme)
+* [Ausgabe im Template](language_switch.md#ausgabe-im-template)
+* [Theme Debug Module](language_switch.md#theme-debug-module)
 
-<a name="was-macht-es"></a>
 ## Was macht es?
 
 Eine kleine Funktion um die Sprachen im Frontend als stylebare Liste auszugeben.
 
-<a name="die-funktion"></a>
 ## Die Funktion
 
 Lege eine Datei namens `clang_switch.php` im [Theme Addon](https://github.com/FriendsOfREDAXO/theme) im Ordner `theme/private/inc/frontend` an.
 
 **Inhalt der Datei**
-    
+
 ```php
 <?php
 /* ----- Language Switch -----
@@ -61,7 +59,6 @@ if(!function_exists("getLangNav"))
 }
 ```
 
-<a name="einbinden-in-theme"></a>
 ## Einbinden in Theme
 
 Anschließend wird die Datei `clang_switch.php` in die `functions.php` im Ordner `theme/private/inc`ein.
@@ -90,7 +87,6 @@ if (!rex::isBackend()) {
 }
 ```
 
-<a name="ausgabe-im-template"></a>
 ## Ausgabe im Template
 
 Jetzt kann die Ausgabe der Funktion an beliebiger Stelle im Template ausgegeben werden.
@@ -101,7 +97,7 @@ Jetzt kann die Ausgabe der Funktion an beliebiger Stelle im Template ausgegeben 
 echo getLangNav(true, true, true, 'my--class');
 ```
 
-<a name="theme-debug-module"></a>
 ## Theme Debug Module
 
-Eine kleine Funktion um die Inhalte der REX_VALUES auszugeben. Vor allem hilfreich beim Einsatz von [mform](https://github.com/FriendsOfREDAXO/mform) und [mblock](https://github.com/FriendsOfREDAXO/mblock). Zur Anleitung: [Theme Debug Module](https://github.com/FriendsOfREDAXO/tricks/blob/master/theme_debug_module.md)
+Eine kleine Funktion um die Inhalte der REX\_VALUES auszugeben. Vor allem hilfreich beim Einsatz von [mform](https://github.com/FriendsOfREDAXO/mform) und [mblock](https://github.com/FriendsOfREDAXO/mblock). Zur Anleitung: [Theme Debug Module](https://github.com/FriendsOfREDAXO/tricks/blob/master/theme_debug_module.md)
+

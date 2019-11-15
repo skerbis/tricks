@@ -1,7 +1,8 @@
 ---
 title: Automatische Sprachweiterleitung
-authors: [alexplusde]
-prio:
+authors:
+  - alexplusde
+prio: null
 ---
 
 # Automatische Sprachweiterleitung
@@ -14,13 +15,13 @@ In diesem Trick geht es darum, die Sprache des Clients automatisch zu erkennen u
 
 ### Sprachen in REDAXO anlegen
 
-Im Backend unter System > Sprachen die gewünschten Sprachen hinzufügen. Im Feld `code` den ISO_CODE der Sprache eintragen, bspw. `de`, `en` oder `fr`.
+Im Backend unter System &gt; Sprachen die gewünschten Sprachen hinzufügen. Im Feld `code` den ISO\_CODE der Sprache eintragen, bspw. `de`, `en` oder `fr`.
 
 ### Maxmind GeoIP-Account
 
-Browser liefern bereits von Haus aus Informationen über die Sprach-Einstellungen des Clients. Diese sind jedoch nicht immer zuverlässig. 
+Browser liefern bereits von Haus aus Informationen über die Sprach-Einstellungen des Clients. Diese sind jedoch nicht immer zuverlässig.
 
-Für eine zuverlässige Erkennung der richtigen Sprache wird der GeoIP-Dienst von Maxmind verwendet. Deshalb ist zunächst ein Konto und ein API-Zugang bei Maxmind notwendig: https://www.maxmind.com/de/geoip2-services-and-databases?pkit_lang=de
+Für eine zuverlässige Erkennung der richtigen Sprache wird der GeoIP-Dienst von Maxmind verwendet. Deshalb ist zunächst ein Konto und ein API-Zugang bei Maxmind notwendig: [https://www.maxmind.com/de/geoip2-services-and-databases?pkit\_lang=de](https://www.maxmind.com/de/geoip2-services-and-databases?pkit_lang=de)
 
 Die API-Zugangsdaten müssen dann im nachfolgendenen Template eingetragen werden, siehe:
 
@@ -32,20 +33,19 @@ Die API-Zugangsdaten müssen dann im nachfolgendenen Template eingetragen werden
 
 In der Praxis ist es leider notwendig, sich vor automatischen Bot-Besuchen zu schützen. Diese können mehrere Besuche pro Sekunde auslösen und dadurch innerhalb eines Tages das Guthaben des Maxmind-Accounts aufbrauchen. Auch das Zwischenspeichern in der `$SESSION`-Variable hilft nicht, da diese möglicherweise vor jedem Besuch eines Bots geleert wird.
 
-Um dieses Problem zu umgehen, wird eine Datenbanktabelle (hier: `rex_maxmind_geoip`) verwendet, die die IP-Adresse und die zugehörige Abfrage bei Maxmind zwischenspeichert (hier: `6 Stunden`). Diese kann in der Datenbank von Hand, oder via YForm, erstellt werden. Sie benötigt folgende Felder:
+Um dieses Problem zu umgehen, wird eine Datenbanktabelle \(hier: `rex_maxmind_geoip`\) verwendet, die die IP-Adresse und die zugehörige Abfrage bei Maxmind zwischenspeichert \(hier: `6 Stunden`\). Diese kann in der Datenbank von Hand, oder via YForm, erstellt werden. Sie benötigt folgende Felder:
 
 * `id` 
-* `ip` (text)
-* `clang_id` (text)
-* `raw` (textarea)
-* `createdate` (createdate)
+* `ip` \(text\)
+* `clang_id` \(text\)
+* `raw` \(textarea\)
+* `createdate` \(createdate\)
 
 ## Template
 
 Dieses Beispiel-Template als seperates Template hinzufügen und bspw. über `REX_TEMPLATE[#]` im Haupt-Template an allererster Stelle referenzieren:
 
 ```php
-
 <?php
 session_start();
 
@@ -72,11 +72,11 @@ if(!isset($_SESSION['clang_id'])) {
             $iso_code = strtolower($maxmind['country']['iso_code']);
 
             if($iso_code) {
- 
+
                 // Korrekte clang-id anhand Sprachcode abrufen
                 $sql = rex_sql::factory();
                 $clang = array_shift(array_filter($sql->getArray('SELECT * FROM rex_clang WHERE status = 1 AND rex_clang.code = :code'), array(':code' => $iso_code)));
-            
+
                 if($clang['clang']) {
                     $_SESSION['clang_id'] = $clang['id'];
 
@@ -93,10 +93,11 @@ if(!isset($_SESSION['clang_id'])) {
             } // $iso_code
         } // !curl_errno($curl)       
     } // !$geoip_cache['clang_id']
-    
+
      header('Location: '.rex_getUrl(REX_ARTICLE_ID, $_SESSION['clang_id']).'');
      exit;
 }
 
 ?>
 ```
+

@@ -1,7 +1,7 @@
 ---
-title: "Einfache Tabelle mit MForm und MBlock"
+title: Einfache Tabelle mit MForm und MBlock
 authors: []
-prio:
+prio: null
 ---
 
 # Einfache Tabelle mit MForm und MBlock
@@ -9,7 +9,6 @@ prio:
 > Benötigt die FOR-Addons `mform` und `mblock`
 
 ## Eingabe
-
 
 ```php
 <?php
@@ -79,3 +78,4 @@ prio:
   </div>
 </section>
 ```
+

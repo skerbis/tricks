@@ -1,26 +1,28 @@
 ---
 title: Dateischutz YCom
-authors: [skerbis,IngoWinter]
-prio:
+authors:
+  - skerbis
+  - IngoWinter
+prio: null
 ---
 
 # Geschütze Dateien mit YCom
 
-Benötigte AddOns: 
-- YRewrite
-- YCom
+Benötigte AddOns:
 
-### Wie kann man Dateien in Verbindung mit YCom (Community Addon) einfach schützen?
+* YRewrite
+* YCom
 
-> Ab ycom Version 3.0 wird das Plugin media_auth mitgeliefert. Hiermit lassen sich einzelne Dateien ohne weitere Anpassungen schützen. Die nachfolgende Anleitung zeigt einen alternativen Weg. 
+## Wie kann man Dateien in Verbindung mit YCom \(Community Addon\) einfach schützen?
 
-Da Redaxo aktuell nur einen Medienordner hat und so von außen alle Dateien in diesem Ordner öffentlich zugänglich sind, benötigt man eine Lösung, die den Dateiaufruf überprüft und entscheidet ob es sich um eine geschützte Datei oder einer öffentlichen Datei handelt. 
+> Ab ycom Version 3.0 wird das Plugin media\_auth mitgeliefert. Hiermit lassen sich einzelne Dateien ohne weitere Anpassungen schützen. Die nachfolgende Anleitung zeigt einen alternativen Weg.
 
+Da Redaxo aktuell nur einen Medienordner hat und so von außen alle Dateien in diesem Ordner öffentlich zugänglich sind, benötigt man eine Lösung, die den Dateiaufruf überprüft und entscheidet ob es sich um eine geschützte Datei oder einer öffentlichen Datei handelt.
 
 Geeignet für Redaxo ab 5.2
 
-1. Medienkategorie(n) erster Ebene anlegen
-2. ID(s) der Kategorie(n) merken und bei `$mediacats2protect=` hinterlegen
+1. Medienkategorie\(n\) erster Ebene anlegen
+2. ID\(s\) der Kategorie\(n\) merken und bei `$mediacats2protect=` hinterlegen
 3. Nachfolgenden Code in die boot.php des Projekt-AddOn einbinden
 
 ```php
@@ -96,22 +98,26 @@ if (!rex_backend_login::hasSession())
 **APACHE** in die .htacces von YRewrite:
 
 > Bei Verwendung von yrewrite direkt nach `RewriteRule ^imagetypes/…`
-    
-	RewriteRule ^/?media/(.*)$ /index.php?ycom_file=$1 [L]
-	
-Variante wenn nur bestimmte Dateitypen geschützt werden sollen 
 
-	# RewriteRule ^/?media/(.*\.(pdf|doc|zip))$ /index.php?ycom_file=$1 [L]
+```text
+RewriteRule ^/?media/(.*)$ /index.php?ycom_file=$1 [L]
+```
 
-**NGINX** 
+Variante wenn nur bestimmte Dateitypen geschützt werden sollen
+
+```text
+# RewriteRule ^/?media/(.*\.(pdf|doc|zip))$ /index.php?ycom_file=$1 [L]
+```
+
+**NGINX**
 
 Direktive für bestimmte Dateitypen:
 
-	location / {
-	rewrite ^/?media/(.*\.(pdf|doc|zip))$ /index.php?fileName=$1 break;
-	}
+```text
+location / {
+rewrite ^/?media/(.*\.(pdf|doc|zip))$ /index.php?fileName=$1 break;
+}
+```
 
-Hier wurde festgelegt welche Dateien geschützt sein sollen.
-Weitere Endungen können beliebig hinzugefügt werden z.B:  |pdf|doc|zip …
- 
+Hier wurde festgelegt welche Dateien geschützt sein sollen. Weitere Endungen können beliebig hinzugefügt werden z.B: \|pdf\|doc\|zip …
 

@@ -1,7 +1,8 @@
 ---
 title: Kopfzeilenbild
-authors: [alexplusde]
-prio:
+authors:
+  - alexplusde
+prio: null
 ---
 
 # Kopfzeilenbild
@@ -10,10 +11,10 @@ Sucht, ausgehend vom aktuellen Artikel, rekursiv alle übergeordneten Artikel/Ka
 
 ## Voraussetzungen
 
-* Ein Meta-Feld namens `art_image`, mit dem sich ein Bild aus dem Medienpool auswählen lässt (`REX_MEDIA_WIDGET`)
+* Ein Meta-Feld namens `art_image`, mit dem sich ein Bild aus dem Medienpool auswählen lässt \(`REX_MEDIA_WIDGET`\)
 * Ein Media-Manager-Profil namens `hero`, das die Bilder wie gewünscht verkleinert und ggf. zuschneidet.
 
-## Template-Ausgabe (einzelnes Bild)
+## Template-Ausgabe \(einzelnes Bild\)
 
 ```php
 <?php
@@ -24,7 +25,7 @@ $rex_category = rex_category::getCurrent();   // Aktuelle Kategorie laden
 while (!$image) { // So lange es kein Bild
 
     $image = $rex_category->getValue('art_image'); // 
-    
+
     if(is_object($rex_category->getParent())) {
         $rex_category = $rex_category->getParent();
     } else {
@@ -39,6 +40,7 @@ while (!$image) { // So lange es kein Bild
 
 > Hinweis: Dies ist nur ein Minimal-Beispiel. Das `alt`-Attribut des Bildes könnte bspw. über den Titel im Medienpool ausgefüllt werden.
 
-## Template-Ausgabe (Slideshow)
+## Template-Ausgabe \(Slideshow\)
 
-_(Bitte ergänzen!)_
+_\(Bitte ergänzen!\)_
+

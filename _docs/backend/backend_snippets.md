@@ -1,19 +1,17 @@
 ---
 title: Backend Snippets
-authors: [alexplusde,ansichtsache,eaCe,skerbis]
-prio:
+authors:
+  - alexplusde
+  - ansichtsache
+  - eaCe
+  - skerbis
+prio: null
 ---
 
 # Backend Snippets
 
-Snippets und Tweaks zur Modifikation des Backends
-1. [Navigation ausblenden](#navhide)
-1. [AddOn ausblenden](#addonhide)
-2. [Seite eines AddOns durch eigene austauschen/ersetzen](#replacepage)
-3. [Subpage eines AddOns durch eigene entsprechend Recht austauschen/ersetzenn](#replacepage2)
-4. [Sortierung des Medienpools ändern](#mediasort)
+Snippets und Tweaks zur Modifikation des Backends 1. [Navigation ausblenden](backend_snippets.md#navhide) 1. [AddOn ausblenden](backend_snippets.md#addonhide) 2. [Seite eines AddOns durch eigene austauschen/ersetzen](backend_snippets.md#replacepage) 3. [Subpage eines AddOns durch eigene entsprechend Recht austauschen/ersetzenn](backend_snippets.md#replacepage2) 4. [Sortierung des Medienpools ändern](backend_snippets.md#mediasort)
 
-<a name="navhide"></a>
 ## Navigation ausblenden
 
 Es ist möglich, die Hauptnavigation und die AddOns auszublenden. Nutzt die Bootstrap-Funktionen.
@@ -31,7 +29,6 @@ if (rex::isBackend() and rex_backend_login::hasSession()) {
 }
 ```
 
-<a name="addonhide"></a>
 ## AddOn ausblenden
 
 Es ist möglich, einzelne AddOns auch für Administratoren auszublenden. In diesem Beispiel werden der Installer und die Systemverwaltung ausgeblendet.
@@ -50,21 +47,19 @@ if (rex::isBackend() and rex_backend_login::hasSession()) {
 }
 ```
 
-<a name="replacepage"></a>
 ## Seite eines AddOns durch eigene austauschen/ersetzen
 
-Will man eine alternative Seite in einem AddOn darstellen und die vorhandene ersetzen, kann dies mit dem nachfolgenden Codes erfogen. In diesem Beispiel wird die `index.php` des Struktur-AddOns ausgetauscht. 
+Will man eine alternative Seite in einem AddOn darstellen und die vorhandene ersetzen, kann dies mit dem nachfolgenden Codes erfogen. In diesem Beispiel wird die `index.php` des Struktur-AddOns ausgetauscht.
 
 ### Startseite eines Addons zur Laufzeit verändern
 
-```php 
+```php
 $page = $this->getProperty('page');
 $page['href'] = ['page' => 'cronjob/log'];
 $this->setProperty('page', $page);
 ```
 
-
-### Ersetzen durch Seite eines anderen AddOns 
+### Ersetzen durch Seite eines anderen AddOns
 
 **Folgenden Code in die boot.php des Project-AddOns platzieren:**
 
@@ -76,10 +71,9 @@ rex_extension::register('PAGES_PREPARED',function($ep) {
   }
 });
 ```
-Verwendeter Extension point: [PAGES_PREPARED](https://github.com/redaxo/redaxo/blob/591146a1dc60e8aacefd58dc9b7e9c307c0983b9/redaxo/src/core/backend.php#L132)
 
+Verwendeter Extension point: [PAGES\_PREPARED](https://github.com/redaxo/redaxo/blob/591146a1dc60e8aacefd58dc9b7e9c307c0983b9/redaxo/src/core/backend.php#L132)
 
-<a name="replacepage2"></a>
 ## Subpage eines AddOns durch eigene entsprechend Recht austauschen/ersetzen
 
 ```php
@@ -90,19 +84,18 @@ $page = $this->getProperty('page');
         'title' => 'Mein neuer Menüpunkt', 
         'icon' => 'rex-icon fa-wrench'
         ];  //neuen Menüpunkt nachträglich einfügen
-        
+
         unset($page['subpages']['default']); //alten Menüpunkt nachträglich entfernen
 $this->setProperty('page', $page);
 
 endif;
 ```
 
-<a name="mediasort"></a>
 ## Sortierung des Medienpools ändern
 
-Die Standard-Sortierung im Medienpool ist immer chronologisch. Die folgende Lösung sorgt für eine alphabetische Sortierung. 
+Die Standard-Sortierung im Medienpool ist immer chronologisch. Die folgende Lösung sorgt für eine alphabetische Sortierung.
 
-Verwendeter Extension point: [MEDIA_LIST_QUERY](https://github.com/redaxo/redaxo/blob/0b624db20ce0baab171ff054d975645e22eceed8/redaxo/src/addons/mediapool/pages/media.php#L637-L642)
+Verwendeter Extension point: [MEDIA\_LIST\_QUERY](https://github.com/redaxo/redaxo/blob/0b624db20ce0baab171ff054d975645e22eceed8/redaxo/src/addons/mediapool/pages/media.php#L637-L642)
 
 **Folgenden Code in die boot.php des Project-AddOns platzieren:**
 
@@ -117,3 +110,4 @@ if (rex::isBackend() && rex::getUser()) {
   });
 }
 ```
+

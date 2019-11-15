@@ -1,15 +1,12 @@
----
-title: Blockauswahl mit Vorschau
-authors: [tbaddade]
-prio:
---- 
+# block\_select
 
-# Blockauswahl mit Vorschau
+title: Blockauswahl mit Vorschau authors: \[tbaddade\]
 
-**Screenshots**
-Screenshots des Layouts machen und speichern als
-`/src/addons/project/assets/module-id-5.png`
-`/src/addons/project/assets/module-id-6.png`
+### prio:
+
+## Blockauswahl mit Vorschau
+
+**Screenshots** Screenshots des Layouts machen und speichern als `/src/addons/project/assets/module-id-5.png` `/src/addons/project/assets/module-id-6.png`
 
 **CSS Datei** anlegen und speichern als `/src/addons/project/assets/module-dropdown.css`
 
@@ -69,7 +66,6 @@ Screenshots des Layouts machen und speichern als
 .rex-slice-select .dropdown-menu > li > a[href*="module_id=6"]:after {
     background-image: url('module-id-6.png');
 }
-
 ```
 
 **boot.php** Datei des project AddOns öffnen und das einsetzen
@@ -85,3 +81,4 @@ if (\rex::isBackend() && \rex_plugin::get('structure', 'content')->isAvailable()
 AddOn project re-installieren, damit die assets übertragen werden.
 
 Das war es.
+

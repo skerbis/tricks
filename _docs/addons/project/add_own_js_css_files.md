@@ -1,23 +1,24 @@
 ---
 title: Eigene JS/CSS-Dateien im Addon 'project'
 authors: []
-prio:
+prio: null
 ---
 
 # Eigene JS/CSS-Dateien im Addon 'project'
 
-Um eigene JS/CSS Dateien in das Backend/Frontend des REDAXO CMS zur Verfügung zu stellen, sollte man das Addon __project__ nutzen. Das Addon wird bei einem Update des System nicht berücksichtig, somit bleiben die projektbezogenen Änderungen erhalten.
+Um eigene JS/CSS Dateien in das Backend/Frontend des REDAXO CMS zur Verfügung zu stellen, sollte man das Addon **project** nutzen. Das Addon wird bei einem Update des System nicht berücksichtig, somit bleiben die projektbezogenen Änderungen erhalten.
 
 **Hinweis**  
-Das AddOn wird im REDAXO CMS im Bereich Addons angezeigt.
-Die Daten des AddOns befinden sich unter `/redaxo/src/addons/project`.
+Das AddOn wird im REDAXO CMS im Bereich Addons angezeigt. Die Daten des AddOns befinden sich unter `/redaxo/src/addons/project`.
 
 ## Struktur
 
-	/boot.php
-	/package.yml
-	/lib/.redaxo
-    
+```text
+/boot.php
+/package.yml
+/lib/.redaxo
+```
+
 ## Assets
 
 Das `/assets/` Verzeichnis muss noch angelegt werden. Darin können die JS/CSS Dateien abgelegt werden.
@@ -45,3 +46,4 @@ if (rex::isBackend() && rex::getUser()) {
 Anschließend das AddOn: project im REDAXO CMS Backend **re-installieren**.
 
 Danach stehen die Dateien im Backend zur Verfügung.
+

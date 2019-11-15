@@ -1,7 +1,10 @@
 ---
 title: Zusätzliche AddOns im Safemode starten
-authors: [dtpop, alexplusde, gharlan]
-prio:
+authors:
+  - dtpop
+  - alexplusde
+  - gharlan
+prio: null
 ---
 
 # Zusätzliche AddOns im Safemode starten
@@ -12,7 +15,7 @@ Der Safemode startet AddOns, die als `setup_addons` in der Datei `data/core/conf
 
 ## Beispiel
 
-```yml
+```text
 setup_addons:
     - backup
     - be_style
@@ -24,3 +27,4 @@ Die Datei `config.yml` steht dem Entwickler für eigene Einträge zur Verfügung
 Damit dieser tolle Tipp nicht ganz so leer bleibt, noch etwas Text dazu ...
 
 Man sollte es nicht übertreiben mit den zusätzlichen AddOns im Safemode, schließlich kann jedes AddOn einen Ooops erzeugen und dann ist der Safemode auch kein Safemode mehr.
+

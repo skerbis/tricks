@@ -1,14 +1,15 @@
 ---
 title: Kategorie duplizieren mit allen Inhalten
-authors: [gharlan]
-prio:
+authors:
+  - gharlan
+prio: null
 ---
 
 # Kategorie duplizieren mit allen Inhalten
 
 * Untenstehendes Skript in eine Datei im Projektroot speichern
 * `$categoryId` und `$targetId` anpassen
-* Backup erstellen (Empfehlung) 
+* Backup erstellen \(Empfehlung\) 
 * Skript über die Konsole aufrufen
 * Skript wieder entfernen
 
@@ -164,3 +165,4 @@ foreach (rex_clang::getAllIds() as $clangId) {
     rex_category_service::newCatPrio($targetId, $clangId, 1, 0);
 }
 ```
+

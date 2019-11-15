@@ -1,7 +1,8 @@
 ---
 title: YForm-Daten konvertieren
-authors: [tbaddade]
-prio:
+authors:
+  - tbaddade
+prio: null
 ---
 
 # YForm-Daten konvertieren
@@ -10,7 +11,7 @@ prio:
 
 ### Uploads
 
-> **Hinweis** Das [Skript](#skript) ist nur ein Beispiel, wie man die Upload-Dateien für eine 2.x Version konvertiert. Daher muss das zuvor Skript der jeweiligen Instanz angepasst werden.
+> **Hinweis** Das [Skript](convert.md#skript) ist nur ein Beispiel, wie man die Upload-Dateien für eine 2.x Version konvertiert. Daher muss das zuvor Skript der jeweiligen Instanz angepasst werden.
 
 #### Was macht das Skript
 
@@ -21,11 +22,7 @@ prio:
 
 > **Hinweis** `$sqlLastId` wird verwendet, da es in der Zwischenzeit Uploads mit der Version 2.x geben könnte. Ist sozusagen der Breakpoint zwische Daten der 1.x und 2.x Version
 
-
-<a name="skript"></a>
-
 ```php
-
 $func = rex_request('func', 'string');
 
 
@@ -80,3 +77,4 @@ if ($func == 'menueplaene' || $func == 'bewerbungen') {
 echo '<a class="btn btn-primary" href="' . rex_getUrl('', '', ['func' => 'menueplaene']) . '">Menüpläne aktualisieren</a>';
 echo '<a class="btn btn-primary" href="' . rex_getUrl('', '', ['func' => 'bewerbungen']) . '">Bewerbungen aktualisieren</a>';
 ```
+

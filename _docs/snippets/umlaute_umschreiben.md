@@ -1,10 +1,10 @@
 ---
-title: "URL aus String mit Umlauten (z. B. ä, Ü, ß) generieren"
+title: 'URL aus String mit Umlauten (z. B. ä, Ü, ß) generieren'
 authors: []
-prio:
+prio: null
 ---
 
-# URL aus String mit Umlauten (z. B. ä, Ü, ß) generieren
+# URL aus String mit Umlauten \(z. B. ä, Ü, ß\) generieren
 
 ```php
 $string = "Über uns hängen Äpfel";
@@ -12,3 +12,4 @@ $new_string = rex_string::normalize($string);
 
 # Result: ueber-uns-haengen-aepfel
 ```
+

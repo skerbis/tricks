@@ -1,26 +1,27 @@
 ---
 title: Artikel Cheatsheet
 authors: []
-prio:
+prio: null
 ---
 
 # Artikel Cheatsheet
 
-### Klassenmethoden
+## Klassenmethoden
 
 ```php
 $articles         = rex_article::getRootArticles();
 $article          = rex_article::get($article_id);
 $article          = rex_article::getCurrent();
 ```
-### Objektmethoden
+
+## Objektmethoden
 
 ```php
 $category         = $article->getCategory();
 $categoryId       = $article->getCategoryId()
 ```
 
-### Beispiele
+## Beispiele
 
 ```php
 // Artikelnamen ausgeben
@@ -32,3 +33,4 @@ usort($articles, function ($a, $b) {
     return $a->getCreateDate() > $b->getCreateDate();
 });
 ```
+

@@ -1,15 +1,15 @@
 ---
-title: "Slice einbinden mit rex_article_slice"
-authors: [skerbis]
-prio:
+title: Slice einbinden mit rex_article_slice
+authors:
+  - skerbis
+prio: null
 ---
 
-# Slice einbinden mit `rex_article_slice`
+# Slice einbinden mit rex\_article\_slice
 
-Manchmal benötigt man eine Information, die bereits in einem Artikel eingepflegt ist. Natürlich kann man diese kopieren oder doppelt pflegen, was jedoch dazu führen kann, dass diese Informationen nicht immer auf dem aktuellen  Stand sind. Eine Lösung hierfür ist die Einbindung zentral gepflegter Artikel oder Tabellendaten. Eine andere ist die Einbindung eines Slices. 
+Manchmal benötigt man eine Information, die bereits in einem Artikel eingepflegt ist. Natürlich kann man diese kopieren oder doppelt pflegen, was jedoch dazu führen kann, dass diese Informationen nicht immer auf dem aktuellen Stand sind. Eine Lösung hierfür ist die Einbindung zentral gepflegter Artikel oder Tabellendaten. Eine andere ist die Einbindung eines Slices.
 
-Mit diesem Modul bindet man einen ausgewählen Slice eines anderen Artikels ein oder bei Bedarf einen ganzen Artikel. Das Modul basiert auf das Slice-HiJacker-Modul von Mirco Brandes/Gerald Rusche für REDAXO 4.x.
-Es wird zusätzlich eine Presave-Aktion benötigt. 
+Mit diesem Modul bindet man einen ausgewählen Slice eines anderen Artikels ein oder bei Bedarf einen ganzen Artikel. Das Modul basiert auf das Slice-HiJacker-Modul von Mirco Brandes/Gerald Rusche für REDAXO 4.x. Es wird zusätzlich eine Presave-Aktion benötigt.
 
 ## Moduleingabe
 
@@ -56,7 +56,7 @@ echo '</div>';
 
   // Den ersten Slice/Block des Artikelt holen
   $slice = rex_article_slice::getFirstSliceForArticle($article_id, $clang); 
-	
+
   do
   {
     // Slice-ID zwischenspeichern
@@ -70,7 +70,7 @@ print "<input ";
     print " type='radio'  name='REX_INPUT_VALUE[2]' id='".$slice_id."' value='".$slice_id."' /> (Slice-ID: ". $slice_id .")</div><hr/>";
     // Den Slice/Block ausgeben
     print $slice->getSlice() ."<div style='display:block;clear:both;'></div></div>";
-		
+
 
   } while (($slice = $slice->getNextSlice()) !== null);
 }
@@ -87,17 +87,17 @@ if( "REX_VALUE[2]" != "" )
   {
     $master = rex_article::get(REX_LINK[id=1 output=id]);
     print '<div class="alert alert-dismissible alert-info">
-	<strong>Eingebundener Inhalt aus: </strong> <a type="button" class="btn btn-primary" href="index.php?page=content&article_id=REX_LINK[id=1 output=id]&mode=edit&clang=1">';
+    <strong>Eingebundener Inhalt aus: </strong> <a type="button" class="btn btn-primary" href="index.php?page=content&article_id=REX_LINK[id=1 output=id]&mode=edit&clang=1">';
     print $master->getName().'</a></div>';
   }
 
-  
+
   if ( "REX_VALUE[2]" == "kompletter_artikel" ) 
   {
     // kompletten Artikel einbinden
-      
+
     $art = rex_article::get('REX_LINK[id=1]'); 
-  
+
           // Artikelinhalt auslesen inkl. aktuelle Sprache    
           $article = new rex_article_content($art->getId(), $art->getClang());  
     echo $article->getArticle(1);
@@ -121,7 +121,6 @@ else
   }
 }
 ```
-
 
 ## Aktion
 

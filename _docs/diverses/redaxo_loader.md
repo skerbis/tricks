@@ -1,19 +1,20 @@
 ---
 title: REDAXO Loader
-authors: [skerbis,dergel]
-prio:
+authors:
+  - skerbis
+  - dergel
+prio: null
 ---
 
 # REDAXO Loader
 
-Skript zum Download und Entpacken der aktuellen REDAXO-Release aus GitHub.
-(Basiert auf einem Gist von Jan Kristinus)
+Skript zum Download und Entpacken der aktuellen REDAXO-Release aus GitHub. \(Basiert auf einem Gist von Jan Kristinus\)
 
-- Datei redaxo_loader.php erstellen und nachfolgenden Quellcode reinkopieren
-- redaxo_loader.php in den Ordner / oder Webroot laden, wo redaxo installiert werden soll
-- redaxo_loader.php aufrufen. 
+* Datei redaxo\_loader.php erstellen und nachfolgenden Quellcode reinkopieren
+* redaxo\_loader.php in den Ordner / oder Webroot laden, wo redaxo installiert werden soll
+* redaxo\_loader.php aufrufen. 
 
-> redaxo_loader.php läd und entpackt die aktuelle Redaxo-Version. 
+> redaxo\_loader.php läd und entpackt die aktuelle Redaxo-Version.
 
 ```php
     <?php
@@ -81,3 +82,4 @@ if ($res === TRUE)
  echo 'Beim Entpacken ist ein Fehler aufgetreten';
  }
 ```
+

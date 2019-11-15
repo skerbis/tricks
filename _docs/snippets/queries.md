@@ -1,21 +1,20 @@
 ---
 title: Queries
-authors: [tbaddade]
-prio:
+authors:
+  - tbaddade
+prio: null
 ---
 
 # Queries
 
-- [Paginierung auf alphabetisch basierende Datensätze](#paginierung-abc)
-    - [vorheriger Datensatz](#paginierung-abc-vorheriger-datensatz)
-    - [nächster Datensatz](#paginierung-abc-naechster-datensatz)
-- [Paginierung auf Datum basierende Datensätze](#paginierung-datum)
-    - [vorheriger Datensatz](#paginierung-datum-vorheriger-datensatz)
-    - [nächster Datensatz](#paginierung-datum-naechster-datensatz)
-- [Query inkl. einer "Bitte auswählen" Option](#option-please-select)
+* [Paginierung auf alphabetisch basierende Datensätze](queries.md#paginierung-abc)
+  * [vorheriger Datensatz](queries.md#paginierung-abc-vorheriger-datensatz)
+  * [nächster Datensatz](queries.md#paginierung-abc-naechster-datensatz)
+* [Paginierung auf Datum basierende Datensätze](queries.md#paginierung-datum)
+  * [vorheriger Datensatz](queries.md#paginierung-datum-vorheriger-datensatz)
+  * [nächster Datensatz](queries.md#paginierung-datum-naechster-datensatz)
+* [Query inkl. einer "Bitte auswählen" Option](queries.md#option-please-select)
 
-
-<a name="paginierung-abc"></a>
 ## Blättern auf alphabetisch basierende Datensätze
 
 Die Methoden basieren auf Yorm und gehören in eine Class wie zum Beispiel
@@ -26,7 +25,6 @@ class Project extends rex_yform_manager_dataset
 }
 ```
 
-<a name="paginierung-abc-vorheriger-datensatz"></a>
 ### vorherigen Datensatz holen
 
 ```php
@@ -40,9 +38,8 @@ public function getPrevious()
 }
 ```
 
-<a name="paginierung-abc-naechster-datensatz"></a>
 ### nächsten Datensatz holen
- 
+
 ```php
 public function getNext()
 {
@@ -54,9 +51,7 @@ public function getNext()
 }
 ```
 
-
-<a name="paginierung-datum"></a>
-## Blättern auf Datum basierende Datensätze zu erstellen (News)
+## Blättern auf Datum basierende Datensätze zu erstellen \(News\)
 
 Die Methoden basieren auf Yorm und gehören in eine Class wie zum Beispiel
 
@@ -68,7 +63,6 @@ class News extends rex_yform_manager_dataset
 
 Die Queries lassen sich aber auch sehr einfach für eine normale DB-Abfrage adaptieren.
 
-<a name="paginierung-datum-vorheriger-datensatz"></a>
 ### vorherigen Datensatz holen
 
 ```php
@@ -84,9 +78,8 @@ public function getPrevious()
 }
 ```
 
-<a name="paginierung-datum-naechster-datensatz"></a>
 ### nächsten Datensatz holen
- 
+
 ```php
 public function getNext()
 {
@@ -100,8 +93,6 @@ public function getNext()
 }
 ```
 
-
-<a name="option-please-select"></a>
 ## Query inkl. einer "Bitte auswählen" Option
 
 Nützlich bei `select`-Feldtypen im **MetaInfo** AddOn oder im **YFormbuilder**
@@ -112,7 +103,7 @@ SELECT name, filename AS id FROM rex_project_icon UNION SELECT ' Bitte wählen' 
 
 ### Beispielausgabe in der Sidebar eines Artikels
 
-```html
+```markup
 <select name="art_icon" size="1" class="form-control" id="rex-metainfo-art_icon">
     <option value=""> Bitte wählen</option>
     <option value="file_a">A</option>
@@ -121,3 +112,4 @@ SELECT name, filename AS id FROM rex_project_icon UNION SELECT ' Bitte wählen' 
 ```
 
 > Hinweis: `select` via **MetaInfo** erstellt
+

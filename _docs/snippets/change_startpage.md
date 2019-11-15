@@ -1,12 +1,12 @@
 ---
 title: Startseite überschreiben
 authors: []
-prio:
+prio: null
 ---
 
 # Startseite überschreiben
 
-Mit dem nachfolgenden Code kann die Startseite abseits der Systemkonfiguration geändert werden, z. B. für einen saisonalen Wechsel. 
+Mit dem nachfolgenden Code kann die Startseite abseits der Systemkonfiguration geändert werden, z. B. für einen saisonalen Wechsel.
 
 ```php
 // in die Boot eines AddOns, z.B. project-AddOn oder Theme-AddOn setzen
@@ -16,7 +16,7 @@ $structureAddon = rex_addon::get('structure');
 // $id durch einen Config-Wert oder durch eine Property vorher setzen
 
  $structureAddon->setProperty('start_article_id', $id);
- 
+
  if (rex_request('article_id', 'int') == 0) {
     $structureAddon ->setProperty('article_id', rex_article::getSiteStartArticleId());
 } else {
@@ -25,3 +25,4 @@ $structureAddon = rex_addon::get('structure');
      $structureAddon ->setProperty('article_id', $article_id);
 }
 ```
+

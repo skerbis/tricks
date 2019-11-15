@@ -1,13 +1,13 @@
 ---
 title: YForm Tabellen oberhalb der AddOns platzieren
-authors: [tbaddade]
-prio:
+authors:
+  - tbaddade
+prio: null
 ---
 
-## YForm Tabellen oberhalb der AddOns platzieren
+# YForm Tabellen oberhalb der AddOns platzieren
 
 **Folgenden Code in die boot.php des Project-AddOns platzieren**
-
 
 ```php
 if (\rex::isBackend() && \rex::getUser() && \rex_plugin::get('yform', 'manager') && count(\rex_yform_manager_table::getAll()) > 0) {
@@ -38,3 +38,4 @@ if (\rex::isBackend() && \rex::getUser() && \rex_plugin::get('yform', 'manager')
     });
 }
 ```
+

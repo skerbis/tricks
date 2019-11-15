@@ -1,37 +1,36 @@
 ---
 title: Individuelle Konfiguration
-authors: [dtpop]
-prio:
+authors:
+  - dtpop
+prio: null
 ---
 
 # Sked - Individuelle Konfiguration
 
-- [Einleitung](#einleitung)
-- [Datenstruktur](#datenstruktur)
-    - [custom_entries.yml](#custom_entries)
-    - [custom_categories.yml](#custom_categories)
-- [Das Backend umbauen](#backend)
-    - [backend.js](#backend-js)
-- [Ajax](#ajax)
-    - [boot.php](#boot)
-- [YForm](#yform)
-- [Frontend](#frontend)
-    - [functions.php](#functions)
-    - [my_sked.php](#mysked)
-- [Modul](#modul)
-- [Fragment](#fragment)
-- [Credits](#credits)
+* [Einleitung](config.md#einleitung)
+* [Datenstruktur](config.md#datenstruktur)
+  * [custom\_entries.yml](config.md#custom_entries)
+  * [custom\_categories.yml](config.md#custom_categories)
+* [Das Backend umbauen](config.md#backend)
+  * [backend.js](config.md#backend-js)
+* [Ajax](config.md#ajax)
+  * [boot.php](config.md#boot)
+* [YForm](config.md#yform)
+* [Frontend](config.md#frontend)
+  * [functions.php](config.md#functions)
+  * [my\_sked.php](config.md#mysked)
+* [Modul](config.md#modul)
+* [Fragment](config.md#fragment)
+* [Credits](config.md#credits)
 
-<a name="einleitung"></a>
 ## Einleitung
 
-Sked, das ist das universelle und flexible Kalender AddOn für REDAXO. Bevor man sich dran macht und selber einen Kalender programmiert, sollte man auf jeden Fall prüfen, ob sich Sked nicht vielleicht für die eigenen Bedürfnisse anpassen lässt.
-Sked kann...
+Sked, das ist das universelle und flexible Kalender AddOn für REDAXO. Bevor man sich dran macht und selber einen Kalender programmiert, sollte man auf jeden Fall prüfen, ob sich Sked nicht vielleicht für die eigenen Bedürfnisse anpassen lässt. Sked kann...
 
-- mit beliebigen Datenfeldern in den bestehenden Tabellen erweitert werden
-- um weitere Tabellen ergänzt werden
-- das Backend kann nach eigenen Bedürfnissen umgestaltet werden
-- die Ausgabe kann über yorm Objekte und Fragmente gelöst werden
+* mit beliebigen Datenfeldern in den bestehenden Tabellen erweitert werden
+* um weitere Tabellen ergänzt werden
+* das Backend kann nach eigenen Bedürfnissen umgestaltet werden
+* die Ausgabe kann über yorm Objekte und Fragmente gelöst werden
 
 Das soll hier an einem Beispiel gezeigt werden.
 
@@ -42,12 +41,11 @@ Die Website ist 2-sprachig.
 
 Die in dieser Konfiguration verwendeten AddOns sind:
 
-- Sked
-- yform
-- theme
-- TinyMCE
+* Sked
+* yform
+* theme
+* TinyMCE
 
-<a name="datenstruktur"></a>
 ## Datenstruktur
 
 Damit die gleichartigen Termine verwaltet werden können, müssen in den Kategorien und den Veranstaltungen die jeweiligen Felder doppelt vorhanden sein. Beim Erfassen des Termins wird der Standardtext aus der Kategorie angzeigt, kann aber im Termin überschrieben werden.
@@ -56,10 +54,9 @@ Die Kategorien von Sked werden verwendet, um Veranstaltungsgruppen zu definieren
 
 Die Custom Definitionen liegen in `data/addons/sked/definitions`.
 
-<a name="custom_entries"></a>
-### custom_entries.yml
+### custom\_entries.yml
 
-```yml
+```text
 langfields:
   - name: 'subtitle'
     type: 'text'
@@ -128,16 +125,14 @@ langfields:
         label_de: Info 1 Beschreibung
         label_en: Info 1 Description    
         attribute:
-          class: form-control sked_info_1_value  
+          class: form-control sked_info_1_value
 ```
-Das ist weitgehend selbsterklärend. Es gibt für einzelne Infoangaben (Dauer, Anmeldung, Preis, Kontakt) definierte Felder sowie ein zusätzliches frei definierbares Feld.
-Die jeweiligen Klassen-Angaben (`class`) werden ergänzt, um die Felder mit Placeholdern aus den Kategorien befüllen zu können.
-Das schöne an der yml-Konfiguration ist, dass man diese Dateien einfach bearbeiten kann. Beim nächsten Aufruf prüft Sked selbständig, ob die Felder in der Datenbank vorhanden sind und legt gegebenenfalls neue Felder an. Die Felder werden aber nicht gelöscht, wenn die Definition in der yml-Datei gelöscht wird.
 
-<a name="custom_categories"></a>
-### custom_categories.yml
+Das ist weitgehend selbsterklärend. Es gibt für einzelne Infoangaben \(Dauer, Anmeldung, Preis, Kontakt\) definierte Felder sowie ein zusätzliches frei definierbares Feld. Die jeweiligen Klassen-Angaben \(`class`\) werden ergänzt, um die Felder mit Placeholdern aus den Kategorien befüllen zu können. Das schöne an der yml-Konfiguration ist, dass man diese Dateien einfach bearbeiten kann. Beim nächsten Aufruf prüft Sked selbständig, ob die Felder in der Datenbank vorhanden sind und legt gegebenenfalls neue Felder an. Die Felder werden aber nicht gelöscht, wenn die Definition in der yml-Datei gelöscht wird.
 
-```yml
+### custom\_categories.yml
+
+```text
 langfields:
   - name: subtitle
     type: text
@@ -208,23 +203,20 @@ Die Felder sind weitestgehend gleich wie bei den Einträgen. Als Editor für die
 
 Die Veranstaltungskategorie wird über ein `selectsql`-Feld realisiert.
 
-<a name="backend"></a>
 ## Das Backend umbauen
 
 Das Backend wird an die eigenen Bedürfnisse angepasst.
 
-- Die Terminwiederholungsfelder werden nicht gebraucht und einfach ausgeblendet
-- Die bis-Felder werden nicht gebraucht und ausgeblendet
-- Der Ort-Tab wird ausgeblendet
-- verschiedene Felder werden umarrangiert
+* Die Terminwiederholungsfelder werden nicht gebraucht und einfach ausgeblendet
+* Die bis-Felder werden nicht gebraucht und ausgeblendet
+* Der Ort-Tab wird ausgeblendet
+* verschiedene Felder werden umarrangiert
 
-Da wir weiterhin an Sked-Updates interessiert sind, können wir natürlich nicht im AddOn selber rumschreiben. Der Einfachheit halber bedienen wir uns daher des genialen Theme-AddOns (Danke an Daniel Weitenauer!).
-Wir arbeiten in der Datei `theme/public/assets/backend/backend.js`. Diese Datei wird standardmäßig im Backend geladen.
+Da wir weiterhin an Sked-Updates interessiert sind, können wir natürlich nicht im AddOn selber rumschreiben. Der Einfachheit halber bedienen wir uns daher des genialen Theme-AddOns \(Danke an Daniel Weitenauer!\). Wir arbeiten in der Datei `theme/public/assets/backend/backend.js`. Diese Datei wird standardmäßig im Backend geladen.
 
-<a name="backend-js"></a>
 ### backend.js
 
-```js
+```javascript
 $(function () {
     // Diese Felder werden im Termineintrag aus der Kategorie befüllt
     var sked_fill_fields = [
@@ -239,65 +231,65 @@ $(function () {
         'subline',
         'time_text'
     ];
-    
+
     function sked_init_entries_form (update_name) {
         var sked_cat_id = $('select.sked_category_select').find('option:selected').val();
-        
+
         // Die Kategorie-Einträge werden für die Termineinträge gelesen und eingesetzt
         $.getJSON('/redaxo/index.php?sked_cat_id='+sked_cat_id, function (data) {
             $.each(sked_fill_fields, function(key,val) {
                 $('#lang1 .sked_'+val).prop('placeholder',data[0][val+'_1']);                
                 $('#lang2 .sked_'+val).prop('placeholder',data[0][val+'_2']);                
             });
-            
+
             // Beschreibungstext wird unterhalb des Textfeldes angezeigt
             $('.description_master').remove();
             $('#lang1').append('<dl class="rex-form-group form-group description_master"><dt>Beschreibung (Standard)</dt><dd>'+data[0]['description_1']+'</dd></dl>');
             $('#lang2').append('<dl class="rex-form-group form-group description_master"><dt>Beschreibung (Standard)</dt><dd>'+data[0]['description_2']+'</dd></dl>');
-            
+
             if (update_name) {
                 $('#lang1 input.sked_entry_name').val(data[0].name_1);
                 $('#lang2 input.sked_entry_name').val(data[0].name_2);
             }
-            
+
             // Some Styling
             $('.sked_repeats_show + dl.rex-form-group').css('margin-top','15px'); 
         });        
     }
-    
+
     if ($('body#rex-page-sked-entries #rex-addon-editmode').length) {
         $('.sked_clangtabs').appendTo('form#rex-addon-editmode > fieldset:first-child');
         $('.rex-form-panel-footer').appendTo('form#rex-addon-editmode > fieldset:first-child');
-        
+
         // Subtitle an den Anfang
         $('#lang1 .sked_subtitle').parents('.rex-form-group').prependTo('#lang1');
         $('#lang2 .sked_subtitle').parents('.rex-form-group').prependTo('#lang2');
-        
+
         // Text an den Schluss
         $('#lang1 textarea.sked_entry_text').parents('.rex-form-group').appendTo('#lang1');
         $('#lang2 textarea.sked_entry_text').parents('.rex-form-group').appendTo('#lang2');
-        
+
         // Felder für Wiederholungstermine ausblenden
         $('.sked_repeat_fields').hide();
-        
+
         // bis-Felder ausblenden
         $('input#dpd2').parents('table.skeddatepicker').hide();
-        
+
         // Ort Select Feld ausblenden
         $('select.sked_venue_select').parents('.rex-form-group').hide();
-        
+
         // Teasertextfeld ausblenden
         $('textarea.sked_entry_teaser').parents('.rex-form-group').hide();
-        
+
         // tinyMCE Editor verwenden
         $('textarea.sked_entry_text').addClass('tinyMCEEditor');
-        
+
         // Felder aus Kategorie aktualisieren
         sked_init_entries_form(false);
     }
     // Der Tab Orte wird ausgeblendet
    $('.nav-tabs .item_venues').hide();
-    
+
     // Wenn eine andere Veranstaltungskategorie gewählt wird, Felder aktualisieren
     $('body').on('change','.sked_category_select',function() {
         sked_init_entries_form(true);
@@ -306,12 +298,10 @@ $(function () {
 });
 ```
 
-<a name="ajax"></a>
 ## Ajax
 
 Die Werte der Veranstaltungskategorie werden als JSON ausgelesen. Hierfür bietet sich die Datei `theme/private/inc/boot.php`
 
-<a name="boot"></a>
 ### boot.php
 
 ```php
@@ -326,21 +316,18 @@ if (rex::isBackend() && rex_get('sked_cat_id') && rex::getUser()) {
 }
 ```
 
-<a name="yform"></a>
 ## yform
 
 In yform muss noch die Kategorientabelle `rex_sked_event_categories` über den Tablemanager angelegt werden. In unserem Falle benötigen wir lediglich die Felder `name_1` und `name_2`, also die Namen für die Sprache 1 und Sprache 2.
 
 Damit ist die Backendkonfiguration abgeschlossen und das Backend sollte funktionieren.
 
-<a name="frontend"></a>
 ## Frontend
 
-Die Frontendausgabe ist natürlich auch sehr individuell und von Projekt zu Projekt verschieden. Deswegen ist hier lediglich ein Beispiel wiedergegeben - zur eigenen Verwendung bzw. Variation. Bei mir hat es sich als sinnvoll erwiesen möglichst viel mit yorm abzudecken. YORM nimmt einem viel Arbeit ab und erlaubt den flexiblen Zugriff auf die Datenbankausgabe. Man kann das natürlich alles mit rex_sql abbilden, das ist aber mehr Codieraufwand und es wird auch nicht so übersichtlich. Deswegen werde ich hier die YORM Variante zeigen.
+Die Frontendausgabe ist natürlich auch sehr individuell und von Projekt zu Projekt verschieden. Deswegen ist hier lediglich ein Beispiel wiedergegeben - zur eigenen Verwendung bzw. Variation. Bei mir hat es sich als sinnvoll erwiesen möglichst viel mit yorm abzudecken. YORM nimmt einem viel Arbeit ab und erlaubt den flexiblen Zugriff auf die Datenbankausgabe. Man kann das natürlich alles mit rex\_sql abbilden, das ist aber mehr Codieraufwand und es wird auch nicht so übersichtlich. Deswegen werde ich hier die YORM Variante zeigen.
 
 Voraussetzung für YORM ist, dass die Tabellen yform Tabellen sind. Deswegen migrieren wir per Mausklick im yform Tablemanager die Sked Tabellen zu yform Tabellen. Dabei werden die Tabellen nicht verändert. Es wird lediglich die Tabellenkonfiguration in den yform Tabellendefinitionen abgelegt. Die Tabellen stellen wir dann auf "in Navigation versteckt".
 
-<a name="functions"></a>
 ### functions.php
 
 Wir schreiben in die Datei `theme/private/inc/functions.php` die Initialisierung für das Model:
@@ -350,8 +337,7 @@ rex_yform_manager_dataset::setModelClass('rex_sked_categories', rex_sked_categor
 rex_yform_manager_dataset::setModelClass('rex_sked_entries', rex_sked_entries::class);
 ```
 
-<a name="mysked"></a>
-### my_sked.php
+### my\_sked.php
 
 Nun brauchen wir noch die Klassen und Funktionen für den Zugriff. Hierzu legen wir uns die Datei `theme/private/lib/my_sked.php` an.
 
@@ -361,7 +347,7 @@ Nun brauchen wir noch die Klassen und Funktionen für den Zugriff. Hierzu legen 
 // Die Klasse für die Veranstaltungskategorie 
 
 class rex_sked_categories extends \rex_yform_manager_dataset {
-    
+
     /**
      * Funktion prüft, ob es einen überschriebenen Wert in entries gibt und gibt diesen zurück
      * ansonsten wird der Wert aus category zurückgegeben.
@@ -380,7 +366,7 @@ class rex_sked_categories extends \rex_yform_manager_dataset {
         }
         return '';
     }
-    
+
     /**
      * Liefert das Sprachbild. Fallback: Bild aus der Sprache 1
      * @return string
@@ -395,8 +381,8 @@ class rex_sked_categories extends \rex_yform_manager_dataset {
         }
         return '';
     }
-    
-    
+
+
     /**
      * Datumsfunktion - nach Belieben und eigenen Bedürfissen anpassen
      * @return string
@@ -409,7 +395,7 @@ class rex_sked_categories extends \rex_yform_manager_dataset {
         } else {
             $time = str_replace(':00','',$this->se_start_time).'  '.[1=>'Uhr',2=>'h'][rex_clang::getCurrentId()];
         }
-        
+
         return $day[2].'.'.$day[1].', '.$time;
     }    
 }
@@ -417,21 +403,21 @@ class rex_sked_categories extends \rex_yform_manager_dataset {
 // Klasse für die Einträge
 
 class rex_sked_entries extends \rex_yform_manager_dataset {
-    
+
 }
 
 // 
 
 class my_sked {
-    
+
     var $where_raw_string;
-    
+
     public function get_entries () {
         $clang = rex_clang::getCurrentId();
 
         // Datenbankzugriff jeweils auf die Sprachfelder
         // se steht für Sked-Entry, sc für Sked-Category
-        
+
         $data = rex_sked_categories::query()
             ->alias('sc')
             ->leftJoin('rex_sked_entries','se','sc.id','se.category')
@@ -453,19 +439,18 @@ class my_sked {
             ->orderBy('se.start_date')
             ->where('se.start_date',date('Y-m-d'),'>=')
             ->where('sc.status', 1);
-        
+
         if ($this->where_raw_string) {
             $data->whereRaw($this->where_raw_string);
         }
 
         return $data->find();
-        
+
     }
-    
+
 }
 ```
 
-<a name="modul"></a>
 ## Modul
 
 Das Modul ist in diesem Falle nicht besonders aufwändig, da die ganze Logik bereits programmiert und abrufbar ist.
@@ -479,7 +464,6 @@ $fragment->setVar('termine',$res);
 echo $fragment->parse('sked_terminliste.php');
 ```
 
-<a name="fragment"></a>
 ## Fragment
 
 Das Fragment legen wir unter `theme/private/fragments/sked_terminliste.php` ab.
@@ -528,7 +512,7 @@ Das Fragment legen wir unter `theme/private/fragments/sked_terminliste.php` ab.
 <?php endforeach ?>
 ```
 
-<a name="credits"></a>
 ## Credits
 
-Sked (Joachim Dörr, Thomas Skerbis), YFORM (Jan Kristinus, Gregor Harlan), Theme (Daniel Weitenauer), Tinymce (Azular GmbH)
+Sked \(Joachim Dörr, Thomas Skerbis\), YFORM \(Jan Kristinus, Gregor Harlan\), Theme \(Daniel Weitenauer\), Tinymce \(Azular GmbH\)
+

@@ -1,10 +1,11 @@
 ---
-title: REDAXO-Klassen ausserhalb Redaxo Kontext nutzen 
-authors: [IngoWinter]
-prio:
+title: REDAXO-Klassen ausserhalb Redaxo Kontext nutzen
+authors:
+  - IngoWinter
+prio: null
 ---
 
-# REDAXO Klassen ausserhalb Redaxo Kontext nutzen 
+# REDAXO Klassen ausserhalb Redaxo Kontext nutzen
 
 ```php
 $REX['REDAXO'] = false;
@@ -16,3 +17,4 @@ $REX['LOAD_PAGE'] = false;
 // REDAXO einbinden
 require $REX['HTDOCS_PATH'].$REX['BACKEND_FOLDER'].'/src/core/boot.php';
 ```
+

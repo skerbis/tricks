@@ -1,12 +1,13 @@
 ---
 title: Kopieren eines YForm-Datensatzes
-authors: [tbaddade]
-prio:
+authors:
+  - tbaddade
+prio: null
 ---
 
 # Kopieren eines YForm-Datensatzes
 
-1. Das [Skript](#skript) als yform_copy.php im Project-AddOn im Ordner **backend** speichern.
+1. Das [Skript](copy_dataset.md#skript) als yform\_copy.php im Project-AddOn im Ordner **backend** speichern.
 2. YForm Feld "php" in der gewünschten Tabelle anlegen und dort die 3 Zeilen notieren 
 
 ```php
@@ -15,11 +16,9 @@ include (rex_path::addon('project', 'backend/yform_copy.php'));
 ?>
 ```
 
-> **Hinweis** 
-Das hier abgebildete Skript sucht die Felder name und status. Werden diese Felder gefunden, werden am Namen des Datensatzes der Schriftzug "kopie" vorangestellt und der Status auf 0 gesetzt.  
-Die Zeilen 19 `case: 'name'` und 22 `case: 'status'` müssen ggf. von Tabelle zu Tabelle angepasst werden, wenn diese Funktion erwünscht ist. Das Kopieren des Datensatzes funktioniert jedoch auch, wenn diese Felder nicht vorhanden sind. 
+> **Hinweis** Das hier abgebildete Skript sucht die Felder name und status. Werden diese Felder gefunden, werden am Namen des Datensatzes der Schriftzug "kopie" vorangestellt und der Status auf 0 gesetzt.  
+> Die Zeilen 19 `case: 'name'` und 22 `case: 'status'` müssen ggf. von Tabelle zu Tabelle angepasst werden, wenn diese Funktion erwünscht ist. Das Kopieren des Datensatzes funktioniert jedoch auch, wenn diese Felder nicht vorhanden sind.
 
-<a name="skript"></a>
 ```php
 <?php
 $orgTable = rex_request('table_name', 'string', '');
@@ -66,5 +65,5 @@ if ($orgId > 0) {
     $context = rex_context::fromGet();
     echo '<a class="btn btn-primary pull-right" href="' . $context->getUrl(['copy' => 1]) . '">Datensatz kopieren</a>';
 }
-
 ```
+
